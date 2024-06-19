@@ -1,0 +1,53 @@
+import re
+import random
+
+# Define the rules for the chatbot
+rules = {
+    'hello': [
+        'Hi there! How can I help you today?',
+        'Hello! What can I do for you?',
+        'Hey! How can I assist you?'
+    ],
+    'how are you': [
+        'I am just a bot, but I am here to help you!',
+        'I am doing great, thanks for asking! How can I assist you?',
+        'I am here to help you. What can I do for you today?'
+    ],
+    'bye': [
+        'Goodbye! Have a great day!',
+        'See you later! Take care!',
+        'Bye! Feel free to return if you need more help!'
+    ],
+    'what is your name': [
+        'I am a bot created to assist you. You can call me ChatBot.',
+        'My name is ChatBot. I am here to help you.',
+        'I am ChatBot, your virtual assistant.'
+    ],
+    'default': [
+        'I am sorry, I do not understand that. Can you please rephrase?',
+        'I didn\'t catch that. Could you say it in a different way?',
+        'I am not sure what you mean. Can you explain it differently?'
+    ]
+}
+
+# Function to match the user input to the defined rules
+def match_rule(user_input, rules):
+    for pattern, responses in rules.items():
+        if re.search(pattern, user_input, re.IGNORECASE):
+            return random.choice(responses)
+    return random.choice(rules['default'])
+
+# Function to handle the chat
+def chat():
+    print("ChatBot: Hi! I am ChatBot. Type 'bye' to exit.")
+    while True:
+        user_input = input("You: ")
+        if user_input.lower() == 'bye':
+            print(f"ChatBot: {random.choice(rules['bye'])}")
+            break
+        response = match_rule(user_input, rules)
+        print(f"ChatBot: {response}")
+
+# Run the chat
+if __name__ == "__main__":
+    chat()
